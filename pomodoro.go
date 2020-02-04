@@ -104,15 +104,15 @@ func parseCommand(state State, command string) (newState State, output Output) {
 		if state.endTime == noTime {
 			return
 		}
-		output.text = formatRemainingTime(state.endTime, state.now) + " 🍅 "
+		output.text = formatRemainingTime(state.endTime, state.now) + "  "
 	case "clear":
 		newState.endTime = noTime
-		output.text = "Pomodoro cleared!"
+		output.text = " Pomodoro cleared!"
 		killRunningBeepers()
 		refreshTmux()
 	case "beep":
 		<-time.NewTicker(duration).C
-		var message = "Pomodoro done, take a break!"
+		var message = " Pomodoro done, take a break!"
 		_ = tmux.DisplayMessage(message)
 		notify.Push("Pomodoro", message, "", notificator.UR_NORMAL)
 		refreshTmux()
@@ -170,7 +170,7 @@ func formatRemainingTime(existingTime time.Time, now time.Time) string {
 		return strconv.FormatFloat(remainingMinutes, 'f', 0, 64)
 	}
 
-	return "❗️"
+	return ""
 }
 
 func writeTime(t time.Time) {
